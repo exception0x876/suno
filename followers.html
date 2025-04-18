@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+<script type="text/javascript">
+    function calculate() {
+        const followers = document.getElementById("followers").value;
+        const followersRegex = /<span class="font-normal font-sans line-clamp-1 text-sm">@([^<]+)<\/span>/g;
+        const followersMatches = followers.match(followersRegex);
+        const followersList = followersMatches.map(match => {
+            return match.match(/@([^<]+)/)[1];
+        });
+
+        const following = document.getElementById("following").value;
+        const followingRegex = /<span class="font-normal font-sans line-clamp-1 text-sm">@([^<]+)<\/span>/g;
+        const followingMatches = following.match(followingRegex);
+        const followingList = followingMatches.map(match => {
+            return match.match(/@([^<]+)/)[1];
+        });
+
+        // find diff
+        const diff = followingList.filter(user => !followersList.includes(user));
+        document.getElementById("notFollowing").innerHTML = 'People not following you back: <br />' + diff.map(user => {
+            return `<a href="https://suno.com/@${user}" target="_blank">@${user}</a>`;
+        }).join('<br />');
+    }
+</script>
+</head>
+<body>
+<p>Instructions:</p>
+<ol>
+    <li>Open your followers list.</li>
+    <li>Scroll to the end of the list. (This might take a while if you have a lot of followers.)</li>
+    <li>Open your browser's Developer Tools (Dev Tools) and go to the Console tab.</li>
+    <li>Copy the contents of the <code>&lt;div&gt;</code> that contains the list of followers.</li>
+    <li>Paste it into the "followers" field here.</li>
+    <li>Repeat the same process for the "following" field.</li>
+</ol>
+<label for="followers">Followers</label>
+<br />
+<textarea id="followers" rows="10" cols="50"></textarea>
+<br />
+<label for="following">Following</label>
+<br />
+<textarea id="following" rows="10" cols="50"></textarea>
+<br />
+<button onclick="calculate()">Calculate</button>
+<p id="notFollowing"></p>
+</body>
+</html>
