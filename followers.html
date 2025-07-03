@@ -3,14 +3,14 @@
 <script type="text/javascript">
     function calculate() {
         const followers = document.getElementById("followers").value;
-        const followersRegex = /<span class="font-normal font-sans line-clamp-1 text-sm">@([^<]+)<\/span>/g;
+        const followersRegex = /<div class="text-xs text-gray-400">@([^<]+)<\/div>/g;
         const followersMatches = followers.match(followersRegex);
         const followersList = followersMatches.map(match => {
             return match.match(/@([^<]+)/)[1];
         });
 
         const following = document.getElementById("following").value;
-        const followingRegex = /<span class="font-normal font-sans line-clamp-1 text-sm">@([^<]+)<\/span>/g;
+        const followingRegex = /<div class="text-xs text-gray-400">@([^<]+)<\/div>/g;
         const followingMatches = following.match(followingRegex);
         const followingList = followingMatches.map(match => {
             return match.match(/@([^<]+)/)[1];
